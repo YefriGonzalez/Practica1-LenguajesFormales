@@ -52,9 +52,16 @@ public class VentanaFrame extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 370, 360));
 
         jButton1.setText("Verificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 160, 60));
 
         AnalizadorTextojTextArea.setColumns(20);
+        AnalizadorTextojTextArea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        AnalizadorTextojTextArea.setLineWrap(true);
         AnalizadorTextojTextArea.setRows(5);
         jScrollPane.setViewportView(AnalizadorTextojTextArea);
 
@@ -90,6 +97,46 @@ public class VentanaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private static String id = "";
+    private static String numero = "";
+    private static String error = "";
+    private static String caracter = "";
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String textoLeido = (EscribirTextojTextArea.getText());
+        for (int i = 0; i < textoLeido.length(); i++) {
+            if (Character.isLetter(textoLeido.charAt(i))) {
+                id += textoLeido.charAt(i);
+            } else if (Character.isSpaceChar(textoLeido.charAt(i)) && !id.equals("")) {
+                AnalizadorTextojTextArea.append("Id: " + id + "\n");
+                id = "";
+            }
+        }
+        for (int i = 0; i < textoLeido.length(); i++) {
+            if (Character.isDigit(textoLeido.charAt(i))) {
+                numero += textoLeido.charAt(i);
+            } else if (Character.isSpaceChar(textoLeido.charAt(i)) && !numero.equals("")) {
+                AnalizadorTextojTextArea.append("Numero: " + numero + "\n");
+                numero = "";
+            }
+        }
+        for (int i = 0; i < textoLeido.length(); i++) {
+            if (!Character.isLetterOrDigit(textoLeido.charAt(i)) && !Character.isSpaceChar(textoLeido.charAt(i))) {
+                caracter += textoLeido.charAt(i) + " ";
+            } else if (Character.isSpaceChar(textoLeido.charAt(i)) && !caracter.equals("")) {
+                AnalizadorTextojTextArea.append("Caracter: " + caracter + "\n");
+                caracter = "";
+            }
+        }
+    limpiarCampos();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+public void limpiarCampos() {
+        //EscribirTextojTextArea.setText("");
+        id = "";
+        numero = "";
+        caracter = "";
+    }
 
     /**
      * @param args the command line arguments
@@ -105,16 +152,31 @@ public class VentanaFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VentanaFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VentanaFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VentanaFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
