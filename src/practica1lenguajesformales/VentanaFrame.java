@@ -112,7 +112,8 @@ public class VentanaFrame extends javax.swing.JFrame {
             if (!Character.isSpaceChar(textoIngresado.charAt(i))) {
                 palabra+=textoIngresado.charAt(i);
             }else {
-                verificarPalabras(palabra);
+                //verificarPalabras(palabra);
+                verificarPalabras2(palabra);
                 palabra="";
             }
         }
@@ -120,24 +121,51 @@ public class VentanaFrame extends javax.swing.JFrame {
 
     public void verificarPalabras(String palabra){
         if(palabra.matches("([a-z]|[A-Z])+.[0-9]*") | palabra.matches("([a-z]|[A-Z])+") ){
-            AnalizadorTextojTextArea.append("Id: "+palabra+ "\n");
+            Texto texto=new Texto(palabra,TipoDeTexto.ID);
+            AnalizadorTextojTextArea.append("Id: "+texto.getPalabra()+ "\n");
         } else if (palabra.matches("[0-9]+")){
-            AnalizadorTextojTextArea.append("Entero: "+palabra+"\n");
+            Texto texto=new Texto(palabra,TipoDeTexto.NUMERO_ENTERO);
+            AnalizadorTextojTextArea.append("Entero: "+texto.getPalabra()+"\n");
         } else if (palabra.matches("[0-9]+.[.].[0-9]")){
-            AnalizadorTextojTextArea.append("Decimal: "+palabra+"\n");
+            Texto texto=new Texto(palabra,TipoDeTexto.NUMERO_DECIMAL);
+            AnalizadorTextojTextArea.append("Decimal: "+texto.getPalabra()+"\n");
         } else if (palabra.matches("[:,;'+-@#~½%=/]")){
-            AnalizadorTextojTextArea.append("Simbolo: "+palabra+"\n");
+            Texto texto=new Texto(palabra,TipoDeTexto.CARACTER);
+            AnalizadorTextojTextArea.append("Simbolo: "+texto.getPalabra()+"\n");
         } else {
-            AnalizadorTextojTextArea.append("Error: "+palabra+"\n");
+            Texto texto=new Texto(palabra,TipoDeTexto.ERROR);
+            AnalizadorTextojTextArea.append("Error: "+texto.getPalabra()+"\n");
+        }
+    }
+    public void verificarPalabras2(String Palabra){
+        boolean tieneLetra=false;
+        for (int i = 0; i <palabra.length()&& !tieneLetra; i++) {
+            if(Character.isLetter(palabra.charAt(i))){
+                tieneLetra=true;
+            } else {
+                tieneLetra=false;
+            }
+        }
+        if (Character.isDigit(palabra.charAt(0)) && tieneLetra==false && palabra.contains(".") && (palabra.contains("1") | palabra.contains("2") | palabra.contains("3") | palabra.contains("4") | palabra.contains("5") | palabra.contains("6") | palabra.contains("7") | palabra.contains("8") | palabra.contains("9") | palabra.contains("0"))) {
+            Texto texto=new Texto(palabra,TipoDeTexto.NUMERO_DECIMAL);
+            AnalizadorTextojTextArea.append("Decimal: "+texto.getPalabra()+"\n");
+        } else if (palabra.contains("(")|palabra.contains(")") |palabra.contains(";") |palabra.contains(",")|palabra.contains("{")|palabra.contains("}") |palabra.contains("[") |palabra.contains("]") |palabra.contains("-")|palabra.contains("+")|palabra.contains("*")|palabra.contains("/")|palabra.contains("'")|palabra.contains("|")){
+            Texto texto=new Texto(palabra,TipoDeTexto.CARACTER);
+            AnalizadorTextojTextArea.append("Simbolo: "+texto.getPalabra()+"\n");
+        } else if (Character.isLetter(palabra.charAt(0))){
+            Texto texto=new Texto(palabra,TipoDeTexto.ID);
+            AnalizadorTextojTextArea.append("Id: "+texto.getPalabra()+ "\n");
+        } else if (Character.isDigit(palabra.charAt(0)) && tieneLetra==false && (palabra.contains("1") | palabra.contains("2") | palabra.contains("3") | palabra.contains("4") | palabra.contains("5") | palabra.contains("6") | palabra.contains("7") | palabra.contains("8") | palabra.contains("9") | palabra.contains("0"))){
+            Texto texto=new Texto(palabra,TipoDeTexto.NUMERO_ENTERO);
+            AnalizadorTextojTextArea.append("Entero: "+texto.getPalabra()+"\n");
+        } else {
+            Texto texto=new Texto(palabra,TipoDeTexto.ERROR);
+            AnalizadorTextojTextArea.append("Error: "+texto.getPalabra()+"\n");
         }
     }
     
-    public void verificarPalabras2(){
-    
-    }
-    
     public void limpiarCampos() {
-        //EscribirTextojTextArea.setText("");
+        EscribirTextojTextArea.setText("");
         id = "";
         numero = "";
         caracter = "";
