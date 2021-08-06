@@ -98,13 +98,9 @@ public class VentanaFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private String textoIngresado;
-    private static String id = "";
-    private static char punto;
     private static String palabra = "";
-    private static String numero = "";
     private static String numeroDecimal = "";
     private static String error = "";
-    private static String caracter = "";
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         textoIngresado = EscribirTextojTextArea.getText();
@@ -167,9 +163,6 @@ public class VentanaFrame extends javax.swing.JFrame {
     
     public void limpiarCampos() {
         EscribirTextojTextArea.setText("");
-        id = "";
-        numero = "";
-        caracter = "";
     }
 
     /**
