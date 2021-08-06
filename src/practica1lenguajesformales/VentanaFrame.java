@@ -115,6 +115,7 @@ public class VentanaFrame extends javax.swing.JFrame {
                 //verificarPalabras(palabra);
                 verificarPalabras2(palabra);
                 palabra="";
+                limpiarCampos();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
